@@ -17,6 +17,8 @@
     },
     "dependencies": {
         "bootstrap": "^5.3.3",
-        "bootstrap-icons": "^1.11.3"
+        "bootstrap-icons": "^1.11.3",
+        "filepond": "^4.32.5",
+        "filepond-plugin-image-preview": "^4.6.12"
     }
 }
