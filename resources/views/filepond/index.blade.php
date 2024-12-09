@@ -24,6 +24,11 @@
                     </td>
                     <td>{{ $item->title }}</td>
                     <td>{{ $item->file }}</td>
+                    <td>
+                        <a href="{{ route('filepond.show', ['id' => $item->id]) }}">
+                            show
+                        </a>
+                    </td>
                 </tr>
             @endforeach
         </tbody>

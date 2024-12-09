@@ -15,5 +15,11 @@ class Article extends Model
         'title',
         'content',
         'file',
+        'attachment',
+    ];
+
+    protected $casts =
+    [
+        'attachment' => 'array',
     ];
 }

@@ -26,16 +26,32 @@ class FilepondController extends Controller
             'title' => 'required|string',
             'content' => 'required|string',
             'file' => 'required|string',
+            'attachment' => 'array',
+            'attachment.*' => 'string',
         ]);
-        $fileTmp = $request->file;
-        $newPath = 'article/' . now()->format('Y/m/');
-        $filePath = $newPath . basename($fileTmp);
-        Storage::disk('public')->put($filePath, Storage::get($fileTmp));
-        Storage::delete($fileTmp);
+        if ($request->has('file')) :
+            $fileTmp = $request->file;
+            $newPath = 'article/' . now()->format('Y/m/');
+            $filePath = $newPath . basename($fileTmp);
+            Storage::disk('public')->put($filePath, Storage::get($fileTmp));
+            Storage::delete($fileTmp);
+        endif;
+
+        $attachments = [];
+        if ($request->has('attachment')) :
+            foreach ($request->attachment as $attachmentTmp) :
+                $attachmentPath = $newPath . basename($attachmentTmp);
+                Storage::disk('public')->put($attachmentPath, Storage::get($attachmentTmp));
+                Storage::delete($attachmentTmp);
+                $attachments[] = $attachmentPath;
+            endforeach;
+        endif;
+
         Article::create([
-            'title' => $request->title,
-            'content' => $request->content,
-            'file' => $filePath,
+            'title' => $request->title ?? null,
+            'content' => $request->content ?? null,
+            'file' => $filePath ?? null,
+            'attachment' => json_encode($attachments) ?? null,
         ]);
         return redirect()->route('filepond.index');
     }
@@ -55,5 +71,11 @@ class FilepondController extends Controller
             path: 'tmp',
             name: now()->format('YmdHis') . '-' .  Str::random(20) . '.' . $file->extension()
         );
+    }
+
+    public function show($id)
+    {
+        $data['article'] = Article::where('id', $id)->first();
+        return view('filepond.show', $data);
     }
 }

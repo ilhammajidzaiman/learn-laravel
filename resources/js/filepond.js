@@ -1,7 +1,9 @@
 import * as FilePond from "filepond";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 
-const inputElement = document.querySelector('input[type="file"].filepond');
+const inputElement = document.querySelector("#file");
+const attachmentInputElement = document.querySelector("#attachment");
+
 FilePond.registerPlugin(FilePondPluginImagePreview);
 const csrfToken = document
     .querySelector('meta[name="csrf-token"]')
@@ -14,4 +16,16 @@ FilePond.create(inputElement).setOptions({
             "X-CSRF-TOKEN": csrfToken,
         },
     },
+});
+
+FilePond.create(attachmentInputElement).setOptions({
+    server: {
+        process: "/filepond/upload",
+        fetch: null,
+        revert: null,
+        headers: {
+            "X-CSRF-TOKEN": csrfToken,
+        },
+    },
+    allowMultiple: true,
 });

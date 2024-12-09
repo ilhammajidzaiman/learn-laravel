@@ -15,6 +15,7 @@
             <textarea name="content" id="content" cols="30" rows="10" class="form-control"></textarea>
         </div>
         <input type="file" name="file" id="file" class="filepond" />
+        <input type="file" name="attachment[]" id="attachment" class="filepond" multiple />
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </x-app-layout>

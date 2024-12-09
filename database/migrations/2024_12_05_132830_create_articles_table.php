@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->text('content')->nullable();
             $table->string('file')->nullable();
+            $table->json('attachment')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
