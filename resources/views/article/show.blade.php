@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        filepond list
+        article view
     </x-slot>
 
     @if (is_array($article->attachment) && count($article->attachment) > 0)

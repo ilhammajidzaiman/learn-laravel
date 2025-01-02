@@ -1,8 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-        filepond list
+        article list
     </x-slot>
-    <a href="{{ route('filepond.create') }}" class="btn btn-primary my-3">
+    <a href="{{ route('article.create') }}" class="btn btn-primary my-3">
         create
     </a>
     <table class="table table-hover">
@@ -25,8 +25,11 @@
                     <td>{{ $item->title }}</td>
                     <td>{{ $item->file }}</td>
                     <td>
-                        <a href="{{ route('filepond.show', ['id' => $item->id]) }}">
+                        <a href="{{ route('article.show', ['id' => $item->id]) }}">
                             show
+                        </a>
+                        <a href="{{ route('article.edit', ['id' => $item->id]) }}">
+                            edit
                         </a>
                     </td>
                 </tr>
